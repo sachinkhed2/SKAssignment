@@ -1,0 +1,52 @@
+package com.build.qa.build.selenium.pageobjects.categorydroppage;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+
+import com.build.qa.build.selenium.pageobjects.BasePage;
+
+public class CategoryDropPage extends BasePage{
+	
+	
+private By products;
+	
+	public CategoryDropPage(WebDriver driver, Wait<WebDriver> wait) {
+		super(driver, wait);
+		products = By.cssSelector("ul#category-product-drop li.product-tile-container a");
+	}
+	
+	public void applyFilter(String categoryType, String value)
+	{
+		
+		
+	}
+	
+	public int resultCount()
+	{
+		return -1;
+		
+	}
+	
+	public List<WebElement> getDisplayedProducts()
+	{
+		wait.until(ExpectedConditions.visibilityOfElementLocated(products));
+		List<WebElement> mylist=driver.findElements(products);
+		return mylist;
+	
+	}
+	
+	public void selectItemFromResults()
+	{
+		
+	}
+	
+	
+	
+	
+
+}

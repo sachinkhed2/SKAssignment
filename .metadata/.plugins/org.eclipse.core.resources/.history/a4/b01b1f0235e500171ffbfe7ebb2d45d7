@@ -1,0 +1,51 @@
+package com.build.qa.build.selenium.pageobjects.productpage;
+
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+
+import com.build.qa.build.selenium.pageobjects.BasePage;
+
+
+
+public class ProductPage extends BasePage{
+
+	
+	private By productTitle;
+	private By addToCartButton;
+	private By proceedToCartButton;
+	private By productAddedToCartMessage;
+	
+	public ProductPage(WebDriver driver, Wait<WebDriver> wait) {
+		super(driver, wait);
+		productTitle = By.cssSelector("div#product h1#heading");
+		addToCartButton = By.cssSelector("div.add-to-cart-btn button");
+		productAddedToCartMessage  = By.cssSelector("div[class*=product-added-title]");
+		proceedToCartButton= By.cssSelector("a[class*=proceed-to-cart]");
+		
+	}
+	
+	public void addItemToCart()
+	{
+	
+		wait.until(ExpectedConditions.elementToBeClickable(addToCartButton)).click();
+		//wait.until(ExpectedConditions.visibilityOfElementLocated(productAddedToCartMessage));
+	}
+	
+	public void proceedToCart()
+	{
+	
+		wait.until(ExpectedConditions.elementToBeClickable(addToCartButton)).click();
+		//wait.until(ExpectedConditions.visibilityOfElementLocated(productAddedToCartMessage));
+	}
+	
+	public String productTitle()
+	{
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(productTitle)).getText().trim();
+		
+	}
+	
+	
+}

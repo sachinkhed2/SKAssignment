@@ -1,0 +1,96 @@
+package com.build.qa.build.selenium.pageobjects.cartpage;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+
+import com.build.qa.build.selenium.pageobjects.BasePage;
+
+public class CartPage extends BasePage {
+	private By cartItems;
+	private By secureCheckoutButton;
+	private By cartTools;
+	private By emailCartButton;
+	private By senderNameInput;
+	private By senderEmailInput;
+	private By rcptNameInput;
+	private By rcptEmailInput;
+	private By otherRcptEmailInput;
+	private By messageInput;
+	private By emailSubmitButton;
+	private By cartEmailSentMessage;
+	
+	
+	public CartPage(WebDriver driver, Wait<WebDriver> wait) {
+		super(driver, wait);
+		
+		cartItems=By.cssSelector("a.item-title");
+		secureCheckoutButton=By.cssSelector("a[class*='checkout-button']");
+		cartTools=By.cssSelector("div.ch-cart-tools button[class*='ch-tools-button']");
+		emailCartButton=By.cssSelector("button[title='Email your cart']");
+		senderNameInput=By.cssSelector("input#yourName");
+		senderEmailInput=By.cssSelector("input#yourEmail");
+		rcptNameInput=By.cssSelector("input#recipientName");
+		rcptEmailInput=By.cssSelector("input#recipientEmail");
+		otherRcptEmailInput=By.cssSelector("input#otherRecipients");
+		messageInput=By.cssSelector("textarea#quoteMessage");
+		emailSubmitButton= By.cssSelector("button[class*=email-cart-submit-button]"); 
+		cartEmailSentMessage= By.cssSelector("ul[class*=alert success]>button>li");
+	}
+	
+
+	public boolean productExistsInCart(String productTitle)
+	{
+		wait.until(ExpectedConditions.visibilityOfElementLocated(secureCheckoutButton));		
+		List<WebElement> products=driver.findElements(cartItems);
+		java.util.Iterator<WebElement> i = products.iterator();
+		while(i.hasNext()) {
+		    WebElement product = i.next();
+		    String displayedTitle=product.getText().trim();
+		    if(displayedTitle.contains(productTitle))
+		    	return true;
+		}
+		
+		return false; 
+	}
+	
+	//Just entering min reqd params for now
+	public void emailCart(String senderName,String senderEmail,String rcptName,String rcptEmail,String otherRcptEmail,String message)
+	{
+		//Sometimes the EMailCart button is hidden in the CartTools dropdown
+		if(getElement(emailCartButton)!=null)
+			wait.until(ExpectedConditions.elementToBeClickable(emailCartButton)).click();
+		else if(getElement(cartTools)!=null)
+		{
+			wait.until(ExpectedConditions.elementToBeClickable(cartTools)).click();
+			wait.until(ExpectedConditions.elementToBeClickable(emailCartButton)).click();
+		}
+		
+		wait.until(ExpectedConditions.elementToBeClickable(senderNameInput)).sendKeys(senderName);
+		wait.until(ExpectedConditions.elementToBeClickable(senderEmailInput)).sendKeys(senderEmail);
+		wait.until(ExpectedConditions.elementToBeClickable(rcptNameInput)).sendKeys(rcptName);
+		wait.until(ExpectedConditions.elementToBeClickable(rcptEmailInput)).sendKeys(rcptEmail);
+		wait.until(ExpectedConditions.elementToBeClickable(otherRcptEmailInput)).sendKeys(otherRcptEmail);
+		wait.until(ExpectedConditions.elementToBeClickable(messageInput)).sendKeys(message);
+		
+		wait.until(ExpectedConditions.elementToBeClickable(emailSubmitButton)).click();
+	}
+	
+	public boolean verifyCartEmailSentMessage()
+	{
+		String expectedEmailSentMessage="Cart Sent! The cart has been submitted to the recipient via email."
+		
+		WebElement cartSentLabel=getElement(By.cssSelector("div[class*=notifications] ul[class*=aslert-success] li "));
+		String displayedText=cartSentLabel.getText().trim();
+		
+		return displayedText.equalsIgnoreCase(expectedEmailSentMessage);
+		
+	}
+	
+	
+	
+}

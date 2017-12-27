@@ -1,0 +1,75 @@
+package com.build.qa.build.selenium.pageobjects.categorydroppage;
+
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+
+import com.build.qa.build.selenium.pageobjects.BasePage;
+
+public class CategoryDropPage extends BasePage{
+	
+	
+private By products;
+	
+	public CategoryDropPage(WebDriver driver, Wait<WebDriver> wait) {
+		super(driver, wait);
+		products = By.cssSelector("ul#category-product-drop li.product-tile-container");
+	}
+	
+	public void applyFilter(String categoryType, String value)
+	{
+		
+		
+	}
+	
+	public int resultCount()
+	{
+		return -1;
+		
+	}
+	
+	public List<WebElement> getDisplayedProducts()
+	{
+		wait.until(ExpectedConditions.visibilityOfElementLocated(products));
+		List<WebElement> mylist=driver.findElements(products);
+		return mylist;
+	
+	}
+	
+	public void selectItemFromResults()
+	{
+		
+	}
+	
+	
+	public int getDisplayedProductCount()
+	{
+		String productCount="";
+		int i=-1;
+		By prodCount=By.cssSelector("div#category-content span.total span.js-num-results");
+		
+		WebElement results=getElement(prodCount);
+		
+		if (results==null)
+			return -1;
+		
+		productCount=results.getText();	
+		try {
+			 i= (int) NumberFormat.getNumberInstance(java.util.Locale.US).parse(productCount);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return i;
+	}
+
+	
+
+}

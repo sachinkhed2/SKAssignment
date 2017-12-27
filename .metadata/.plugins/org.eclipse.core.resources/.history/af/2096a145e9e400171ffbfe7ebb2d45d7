@@ -1,0 +1,31 @@
+package com.build.qa.build.selenium.pageobjects.headerpage;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+
+import com.build.qa.build.selenium.pageobjects.BasePage;
+import com.build.qa.build.selenium.pageobjects.productpage.ProductPage;
+
+public class HeaderPage extends BasePage {
+	
+	
+	private By searchBar;
+	private By searchButton;
+	
+	
+
+	public HeaderPage(WebDriver driver, Wait<WebDriver> wait) {
+		super(driver, wait);
+	}
+	
+	
+	public ProductPage searchProduct(String searchValue)
+	{
+		
+			
+		return new ProductPage(driver, wait);
+	}
+	
+}

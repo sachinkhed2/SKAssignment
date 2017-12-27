@@ -1,0 +1,28 @@
+package com.build.qa.build.selenium.pageobjects.categorydroppage;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+
+import com.build.qa.build.selenium.pageobjects.BasePage;
+
+public class CategoryDropPage extends BasePage{
+	
+	
+private By buildThemeBody;
+	
+	public CategoryDropPage(WebDriver driver, Wait<WebDriver> wait) {
+		super(driver, wait);
+		//buildThemeBody = By.cssSelector("body.build-theme");
+	}
+	
+	public void applyFilter(String categoryType, String value)
+	{
+		
+		
+	}
+	
+	
+
+}

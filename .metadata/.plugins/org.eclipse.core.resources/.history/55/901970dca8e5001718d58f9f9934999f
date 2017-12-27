@@ -1,0 +1,75 @@
+package com.build.qa.build.selenium.pageobjects.cartpage;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+
+import com.build.qa.build.selenium.pageobjects.BasePage;
+
+public class CartPage extends BasePage {
+	private By cartItems;
+	private By secureCheckoutButton;
+	private By cartTools;
+	private By emailCartButton;
+	private By senderNameInput;
+	private By senderEmailInput;
+	private By rcptNameInput;
+	private By rcptEmailInput;
+	private By otherRcptEmailInput;
+	private By messageInput;
+	
+	
+	public CartPage(WebDriver driver, Wait<WebDriver> wait) {
+		super(driver, wait);
+		
+		cartItems=By.cssSelector("a.item-title");
+		secureCheckoutButton=By.cssSelector("a[class*='checkout-button']");
+		cartTools=By.cssSelector("div.ch-cart-tools button[class*='ch-tools-button']");
+		emailCartButton=By.cssSelector("button[title='Email your cart']");
+		senderNameInput=By.cssSelector("input#yourName");
+		senderEmailInput=By.cssSelector("input#yourEmail");
+		rcptNameInput=By.cssSelector("input#recipientName");
+		rcptEmailInput=By.cssSelector("input#recipientEmail");
+		otherRcptEmailInput=By.cssSelector("input#otherRecipients");
+		messageInput=By.cssSelector("textarea#quoteMessage");
+		
+	}
+	
+
+	public boolean productExistsInCart(String productTitle)
+	{
+		wait.until(ExpectedConditions.visibilityOfElementLocated(secureCheckoutButton));		
+		List<WebElement> products=driver.findElements(cartItems);
+		java.util.Iterator<WebElement> i = products.iterator();
+		while(i.hasNext()) {
+		    WebElement product = i.next();
+		    if(product.getText().trim().equalsIgnoreCase(productTitle))
+		    	return true;
+		}
+		
+		return false; 
+	}
+	
+	//Just declaring min reqd params for now
+	public void emailCart(String senderName,String senderEmail,String rcptName,String rcptEmail,String otherRcptEmail,String message)
+	{
+		if(elementExists(cartTools))
+			wait.until(ExpectedConditions.elementToBeClickable(cartTools)).click();
+
+		wait.until(ExpectedConditions.elementToBeClickable(emailCartButton)).click();
+		wait.until(ExpectedConditions.elementToBeClickable(senderNameInput)).sendKeys(senderName);
+		wait.until(ExpectedConditions.elementToBeClickable(senderEmailInput)).sendKeys(senderEmail);
+		wait.until(ExpectedConditions.elementToBeClickable(rcptNameInput)).sendKeys(rcptName);
+		wait.until(ExpectedConditions.elementToBeClickable(rcptEmailInput)).sendKeys(rcptEmail);
+		wait.until(ExpectedConditions.elementToBeClickable(otherRcptEmailInput)).sendKeys(otherRcptEmail);
+		wait.until(ExpectedConditions.elementToBeClickable(messageInput)).sendKeys(message);
+		
+	}
+	
+	
+	
+}

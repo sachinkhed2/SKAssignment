@@ -1,0 +1,30 @@
+package com.build.qa.build.selenium.pageobjects.cartpage;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+
+import com.build.qa.build.selenium.pageobjects.BasePage;
+
+public class CartPage extends BasePage {
+	private 
+	
+	public CartPage(WebDriver driver, Wait<WebDriver> wait) {
+		super(driver, wait);
+	}
+	
+
+	public boolean productExistsInCart(String productTitle)
+	{
+		return wait.until(ExpectedConditions.presenceOfElementLocated(buildThemeBody)) != null; 
+	}
+	
+	public void emailCart(String itemTitle)
+	{
+		
+	}
+	
+	
+	
+}

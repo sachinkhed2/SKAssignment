@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Change method &apos;protected WebElement com.build.qa.build.selenium.framework.BaseFramework.elementExists(By locator)&apos; to &apos;protected WebElement getElement(By locator)&apos;&#x0D;&#x0A;- Original project: &apos;build-selenium-test-master&apos;&#x0D;&#x0A;- Original element: &apos;com.build.qa.build.selenium.framework.BaseFramework.elementExists(...)&apos;&#x0D;&#x0A;- New name: &apos;getElement&apos;" delegate="false" deprecate="true" description="Change method &apos;elementExists&apos;" flags="589830" id="org.eclipse.jdt.ui.change.method.signature" input="/src\/main\/java&lt;com.build.qa.build.selenium.framework{BaseFramework.java[BaseFramework~elementExists~QBy;" name="getElement" parameter1="By locator 0 By locator false" stamp="1514394337396" version="1.0"/>
+</session>

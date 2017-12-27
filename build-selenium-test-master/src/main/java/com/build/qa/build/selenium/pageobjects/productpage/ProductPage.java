@@ -1,0 +1,64 @@
+package com.build.qa.build.selenium.pageobjects.productpage;
+
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+
+import com.build.qa.build.selenium.pageobjects.BasePage;
+import com.build.qa.build.selenium.pageobjects.cartpage.CartPage;
+
+
+
+public class ProductPage extends BasePage{
+
+	
+	private By productTitle;
+	private By addToCartButton;
+	private By proceedToCartButton;
+	private By productAddedToCartMessage;
+	
+	public ProductPage(WebDriver driver, Wait<WebDriver> wait) {
+		super(driver, wait);
+		productTitle = By.cssSelector("div#product h1#heading");
+		addToCartButton = By.cssSelector("div.add-to-cart-btn button");
+		productAddedToCartMessage  = By.cssSelector("div[class*=product-added-title]");
+		proceedToCartButton= By.cssSelector("a[class*=proceed-to-cart]");
+		
+	}
+	
+	public void closeChatScreenIfDisplayed(){
+		
+		
+		WebElement hideLink=getElement(By.cssSelector("a#persistent-chat-prompt-minimizable div[class*=hide-link] span"));
+		if(hideLink!=null)
+			{
+				hideLink.click();
+				wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("a#persistent-chat-prompt-minimizable div[class*=hide-link] span")));
+			}
+		
+	}
+	
+	public void addItemToCart()
+	{
+	
+		wait.until(ExpectedConditions.elementToBeClickable(addToCartButton)).click();
+		
+	}
+	
+	public CartPage proceedToCart()
+	{
+		wait.until(ExpectedConditions.elementToBeClickable(proceedToCartButton)).click();
+		return new CartPage(driver, wait);
+	}
+	
+	public String productTitle()
+	{
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(productTitle)).getText().trim();
+		
+	}
+	
+	
+}

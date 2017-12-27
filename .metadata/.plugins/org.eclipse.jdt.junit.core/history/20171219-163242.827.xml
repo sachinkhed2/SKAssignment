@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="Rerun com.build.qa.build.selenium.tests.BuildTest.addProductToCartFromCategoryDrop" project="build-selenium-test-master" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testcase name="addProductToCartFromCategoryDrop" classname="com.build.qa.build.selenium.tests.BuildTest" time="27.895"/>
+</testrun>

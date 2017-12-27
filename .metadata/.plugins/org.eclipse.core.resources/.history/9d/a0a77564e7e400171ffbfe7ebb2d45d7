@@ -1,0 +1,5 @@
+package com.build.qa.build.selenium.pageobjects.headerpage;
+
+public class HeaderPage {
+
+}
